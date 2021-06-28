@@ -1,0 +1,11 @@
+export const types = {
+    //sync
+    IS_LOADING : 'IS_LOADING',
+    IS_AUTH : 'IS_AUTH',
+    IS_LOGOUT : 'IS_LOGOUT',
+    //async
+    ASYNC_REGISTRATION : 'ASYNC_REGISTRATION',
+    ASYNC_LOGIN : 'ASYNC_LOGIN',
+    ASYNC_CHECK_AUTH : 'ASYNC_CHECK_AUTH',
+    ASYNC_LOGOUT : 'ASYNC_LOGOUT',
+}

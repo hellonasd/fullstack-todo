@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'roboto';
+  src: local('roboto'), url(./font-family/Roboto-Light.ttf);
+  src: local('roboto'), url(./font-family/Roboto-Bold.ttf);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #03adfc;
+}
+
+.btn-logout {
+  margin: 50 auto;
+}

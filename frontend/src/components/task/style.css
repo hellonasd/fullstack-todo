@@ -1,0 +1,23 @@
+.task{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    margin-bottom: 20px;
+}
+
+.task-message{
+    width: 100%;
+    
+}
+.task-input-message{
+    padding-left: 20px;
+}
+
+.icons{
+    display: flex;
+    position: relative;
+    right: 42px;
+    height: 40px;
+    align-items: center;
+}
