@@ -21,13 +21,9 @@ class TodoController {
 
     async getAllTodo (req, res, next){
         const { refreshToken } = req.cookies;
-        const {id, email} = await tokenService.validateRefreshToken(refreshToken);
+        const {email} = tokenService.validateRefreshToken(refreshToken);
         const user = await userModel.findOne({email}).select('-__v -password').populate({path : 'todos',options: { sort: { 'data.created': -1 } }, select : '-__v '});
-        const todo = await TodoModel.findOne({_id : user._id})
-        if(!todo){
-            return res.json(user);
-        }
-        return res.json(todo);
+        return res.json(user);
     }
 
     async deleteTodo(req, res, next) {
