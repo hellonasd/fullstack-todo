@@ -1,5 +1,6 @@
 const TodoModel = require('../models/users/todo');
 const TokenModel = require('../models/users/token');
+const tokenService = require('../service/token-service');
 const userModel = require('../models/users/user');
 const todoService = require('../service/todo-service');
 
@@ -20,9 +21,12 @@ class TodoController {
 
     async getAllTodo (req, res, next){
         const { refreshToken } = req.cookies;
-        const token = await TokenModel.find({refreshToken});
-        const todo = await userModel.findOne(token._id).select('-__v -password')
-        .populate({path : 'todos',options: { sort: { 'data.created': -1 } }, select : '-__v '})
+        const {id, email} = await tokenService.validateRefreshToken(refreshToken);
+        const user = await userModel.findOne({email}).select('-__v -password').populate({path : 'todos',options: { sort: { 'data.created': -1 } }, select : '-__v '});
+        const todo = await TodoModel.findOne({_id : user._id})
+        if(!todo){
+            return res.json(user);
+        }
         return res.json(todo);
     }
 
@@ -36,6 +40,12 @@ class TodoController {
         const {id, message} = req.body;
         const data = await TodoModel.findOneAndUpdate({_id: id}, {$set : {'data.message' : message}},{new : true})
         res.status(200)
+    }
+
+    async updateCompletedAndFavorite(req, res, next){
+        const {id, favorite, completed} = req.body;
+        const data = await TodoModel.findOneAndUpdate({_id : id}, {$set : {'data.favorite' : favorite, 'data.completed':completed}}, {new : true});
+        return res.status(201).json(data);
     }
 }
 

@@ -12,5 +12,6 @@ router.post('/createtask', TodoController.createTodo);
 router.get('/getalltodo', TodoController.getAllTodo);
 router.delete('/delete', TodoController.deleteTodo);
 router.put('/updateTask', TodoController.updateMessage);
+router.put('/upda-favorite-and-completed', TodoController.updateCompletedAndFavorite);
 
 module.exports = router;
