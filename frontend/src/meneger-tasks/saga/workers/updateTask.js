@@ -25,7 +25,7 @@ export function* updateTask({
         }))
         
         yield apply(AuthService, AuthService.updateMessage, [id, message]);
-
+        yield put(actions.sortByImportance())
     } catch (error) {
         console.log('error', error);
     }

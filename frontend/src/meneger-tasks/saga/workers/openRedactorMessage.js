@@ -8,8 +8,11 @@ import {
 export function* openRedactorMessage({payload}) {
     try {
         yield put(actions.openRedactor(payload))
+        
     } catch (error) {
         console.log('error :', error);
 
+    }finally{
+        yield put(actions.sortByImportance())
     }
 }

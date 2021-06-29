@@ -46,6 +46,18 @@ export const actions = {
             payload : id
         }
     },
+    updateFavoriteCompleted : (payload) => {
+        return {
+            type : types.UPDATE_FAVORITE_AND_COMPLETED,
+            payload,
+        }
+    },
+
+    sortByImportance : () => {
+        return {
+            type : types.SORT_BY_IMPORT,
+        }
+    },
     //async
     asyncCreateTask : (payload) => {
         return {
@@ -79,6 +91,13 @@ export const actions = {
         return {
             type : types.ASYNC_OPEN_REDACTOR,
             payload : id
+        }
+    },
+
+    asyncUpdateFavorite: (payload) => {
+        return {
+            type : types.ASYNC_UPDATE_FAVORITE_AND_COMPLETED,
+            payload
         }
     },
     

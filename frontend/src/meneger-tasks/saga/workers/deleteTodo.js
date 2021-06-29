@@ -7,7 +7,10 @@ export function* deleteTodo({payload}) {
         const response = yield apply(AuthService, AuthService.deleteTodo, [payload]);
         
         yield put(actions.deleteTask(response.data));
+        
     } catch (error) {
         console.log('error', error);
+    }finally{
+        yield put(actions.sortByImportance())
     }
 }

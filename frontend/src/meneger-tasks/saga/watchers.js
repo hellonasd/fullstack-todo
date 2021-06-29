@@ -1,30 +1,52 @@
-import { call, all, takeEvery } from 'redux-saga/effects';
+import {
+    call,
+    all,
+    takeEvery
+} from 'redux-saga/effects';
 
-import { types } from '../types';
+import {
+    types
+} from '../types';
 
-import { createPost, getAllTodo,deleteTodo,updateTask, updateMessageServer, openRedactorMessage} from './workers';
+import {
+    createPost,
+    getAllTodo,
+    deleteTodo,
+    updateTask,
+    updateMessageServer,
+    openRedactorMessage,
+    updateFavorite
+} from './workers';
 
-function* createPostWorker(){
+function* createPostWorker() {
     yield takeEvery(types.ASYNC_CREATE_TASK, createPost);
 }
 
-function* getAllTodoWorker(){
+function* getAllTodoWorker() {
     yield takeEvery(types.ASYNC_GET_ALL_TODO, getAllTodo);
 }
-function* deleteTodoWorker(){
+
+function* deleteTodoWorker() {
     yield takeEvery(types.ASYNC_DELETE_TODO, deleteTodo);
 }
-function* updateTaskWorker(){
+
+function* updateTaskWorker() {
     yield takeEvery(types.ASYNC_UPDATE_TASK, updateTask);
 }
-function* updateMessageWorker(){
+
+function* updateMessageWorker() {
     yield takeEvery(types.UPDATE_MESSAGE_ON_SERVER, updateMessageServer);
 }
-function* openRedactorWorker(){
+
+function* openRedactorWorker() {
     yield takeEvery(types.ASYNC_OPEN_REDACTOR, openRedactorMessage);
 }
 
-export function* watchPostsWorker(){
+function* updateFavoriteWorker() {
+    yield takeEvery(types.ASYNC_UPDATE_FAVORITE_AND_COMPLETED, updateFavorite);
+}
+
+export function* watchPostsWorker() {
     yield all([
         call(createPostWorker),
         call(getAllTodoWorker),
@@ -32,5 +54,6 @@ export function* watchPostsWorker(){
         call(updateTaskWorker),
         call(updateMessageWorker),
         call(openRedactorWorker),
+        call(updateFavoriteWorker),
     ]);
 }

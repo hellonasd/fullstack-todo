@@ -19,7 +19,11 @@ export default class AuthService {
         return $api.delete('/delete', {params :{data : id}});
     }
     static async updateMessage(id, message){
-        console.log('id', id, message)
+        
         return $api.put('/updateTask', {id, message});
+    }
+    static async updateFavoriteAndCompleted(id, favorite, completed = false){
+        
+        return $api.put('/upda-favorite-and-completed', {id, favorite, completed});
     }
 }

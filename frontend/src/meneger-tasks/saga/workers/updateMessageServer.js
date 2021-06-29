@@ -15,8 +15,10 @@ export function* updateMessageServer({
             message
         } = payload
         yield apply(AuthService, AuthService.updateMessage, [id, message]);
-
+        
     } catch (error) {
         console.log('error', error);
+    }finally{
+        yield put(actions.sortByImportance())
     }
 }

@@ -13,7 +13,10 @@ export function* createPost(action) {
             }
         }
         yield put(actions.createTask(item));
+        
     } catch (error) {
         console.log('error', error);
+    }finally{
+        yield put(actions.sortByImportance())
     }
 }

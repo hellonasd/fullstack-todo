@@ -27,6 +27,7 @@ export const Cheduler = () => {
         id={todo._id}
         key={todo._id}
         completed={todo.data.completed}
+        favorite={todo.data.favorite}
         message={todo.data.message}
         actions = {actions}
         isOpen = {todos.isOpen}

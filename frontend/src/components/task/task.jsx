@@ -13,40 +13,44 @@ export const Task = (props) => {
     dispatch(actions.asyncDelteTodo(id));
   };
 
-  const updateTask = (id,message) => {
-    dispatch(actions.asyncUpdateTask({id,message}))
+  const updateTask = (id, message) => {
+    dispatch(actions.asyncUpdateTask({ id, message }));
   };
-
+  
   const sendTask = (e) => {
-    
-    const {value} = e.target;
-    if(e.key === 'Enter' || e.key === 'Escape'){
-      dispatch(actions.updateMessages({id,message}))
+    const { value } = e.target;
+    if (e.key === "Enter" || e.key === "Escape") {
+      dispatch(actions.updateMessages({ id, message }));
     }
-  }
+  };
   const openEdit = (id) => {
-    if(!isOpen){
-      dispatch(actions.asyncOpenRedactor(id))
-    }else {
+    if (!isOpen) {
+      dispatch(actions.asyncOpenRedactor(id));
+    } else {
       dispatch(actions.closeRedactor(id));
     }
+  };
+
+  const updateFavorite = (id, favorite) => {
+    console.log(favorite)
+    dispatch(actions.asyncUpdateFavorite({id, favorite}))
   }
 
   return (
     <li className="task" key={id}>
       <div className="task-message">
         <input
-        disabled={!isOpen}
+          disabled={!isOpen}
           className="task-input-message"
-          onChange={(e) =>  updateTask(id, e.target.value)}
+          onChange={(e) => updateTask(id, e.target.value)}
           onKeyDown={(e) => sendTask(e)}
           type="text"
           value={message}
         />
       </div>
       <div className="icons">
-        <Star />
-        <Edit openEdit={openEdit} id={id}/>
+        <Star checked={!favorite} color1="#3B8EF3" color2="#000" updateFavorite={updateFavorite} id={id}/>
+        <Edit color1="#3B8EF3" color2="#000" openEdit={openEdit} id={id} isOpen={isOpen}/>
         <Remove deleteTodo={deleteTodo} />
       </div>
     </li>

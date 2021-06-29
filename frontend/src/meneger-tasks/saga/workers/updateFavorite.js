@@ -1,11 +1,12 @@
 import { put, apply } from 'redux-saga/effects';
 import AuthService from '../../../service/authService'
 import { actions } from '../../actions';
-export function* getAllTodo(email) {
+export function* updateFavorite({payload}) {
     try {
-        const response = yield apply(AuthService, AuthService.getAllTodo, [email]);
-        yield put(actions.getAllTodo(response.data.todos));
-        yield put(actions.sortByImportance())
+        const {id, favorite} = payload
+        const response = yield apply(AuthService, AuthService.updateFavoriteAndCompleted,[id, favorite])
+        
+        yield put(actions.updateFavoriteCompleted(response.data))
     } catch (error) {
         console.log('error', error);
     }finally{

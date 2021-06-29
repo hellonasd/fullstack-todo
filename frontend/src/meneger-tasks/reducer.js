@@ -79,6 +79,39 @@ export const reducer = (state = initialState, action) => {
                     }
                 })
             }
+        case types.UPDATE_FAVORITE_AND_COMPLETED :
+            return {
+                ...state,
+                todo : state.todo.map(el => {
+                    if(el._id === action.payload._id){
+                        return {
+                            ...el,
+                            favorite : action.payload.data.favorite,
+                            completed : action.payload.data.completed,
+                        }
+                    }else {
+                        return {
+                            ...el,
+                        }
+                    }
+                })
+            }
+        case types.SORT_BY_IMPORT : 
+        return {
+            ...state,
+            todo : state.todo.sort((a, b) => {
+                
+                if(a.data.favorite === b.data.favorite){
+                    
+                    if(a.data.completed === b.data.completed){
+                        
+                        return a.data.created.localeCompare(b.data.created)
+                    }
+                    return a.data.completed > b.data.completed ? 1 : -1
+                }
+                return b.data.favorite > a.data.favorite ? 1 : -1;
+            })
+        }
             default:
                 return state;
     }
