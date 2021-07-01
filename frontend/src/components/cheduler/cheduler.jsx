@@ -9,11 +9,11 @@ export const Cheduler = () => {
   const { user } = useSelector((state) => state.auth);
   const todos = useSelector((state) => state.posts);
   const { re } = useSelector((state) => state.posts);
-  const [ss, setSS] = useState(re);
+  const [findEl, setFind] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(actions.asyncGetAllTodo(user.email));
-  }, [re]);
+  }, [re, findEl]);
 
   const addNewTask = (event) => {
     const value = event.target[0].value;
@@ -23,19 +23,9 @@ export const Cheduler = () => {
     }
     event.preventDefault();
   };
-  const tasks = todos.todo.map((todo) => {
-    return (
-      <Task
-        id={todo._id}
-        key={todo._id}
-        completed={todo.data.completed}
-        favorite={todo.data.favorite}
-        message={todo.data.message}
-        actions={actions}
-        isOpen={todos.isOpen}
-        {...todo}
-      />
-    );
+
+  const filterTodo = todos.todo.filter((el) => {
+    return el.data.message.includes(findEl);
   });
 
   return (
@@ -43,7 +33,12 @@ export const Cheduler = () => {
       <main className="chedule-wrapper">
         <header className="chedule-header">
           <h1 className="chedule-header-title">Планировщик задач</h1>
-          <input type="search" className="input-search" placeholder="Поиск" />
+          <input
+            type="search"
+            className="input-search"
+            onChange={(e) => setFind(e.target.value)}
+            placeholder="Поиск"
+          />
         </header>
         <section className="schedule-tasks-main">
           <form className="schedule-form" onSubmit={(e) => addNewTask(e)}>
@@ -56,14 +51,13 @@ export const Cheduler = () => {
           </form>
 
           <FlipMove delay={200} className="chedule-view-task">
-            {todos.todo.map((todo) => (
+            {filterTodo.map((todo) => (
               <CSSTransition
                 in={re}
                 key={todo._id}
                 timeout={200}
                 classNames="item"
               >
-              
                 <Task
                   id={todo._id}
                   key={todo._id}
@@ -74,7 +68,6 @@ export const Cheduler = () => {
                   isOpen={todos.isOpen}
                   {...todo}
                 />
-
               </CSSTransition>
             ))}
           </FlipMove>

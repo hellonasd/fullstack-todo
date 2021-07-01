@@ -9,7 +9,7 @@ const initialState = {
     todo: [],
     isOpen : false,
     re : true,
-    
+
 };
 
 export const reducer = (state = initialState, action) => {
@@ -116,6 +116,7 @@ export const reducer = (state = initialState, action) => {
             ...state,
             re : !state.re
         }
+    
         default:
             return state;
     }
