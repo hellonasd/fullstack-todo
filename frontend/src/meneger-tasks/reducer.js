@@ -7,7 +7,9 @@ import {
 
 const initialState = {
     todo: [],
-    isOpen : false
+    isOpen : false,
+    re : true,
+    
 };
 
 export const reducer = (state = initialState, action) => {
@@ -91,14 +93,12 @@ export const reducer = (state = initialState, action) => {
                         }
                     }else {
                         return {
-                            ...el,
+                            ...el
                         }
                     }
                 })
             }
         case types.SORT_BY_IMPORT : 
-        
-        
         return {
             ...state,
             todo : state.todo.sort((a, b) => {
@@ -111,7 +111,12 @@ export const reducer = (state = initialState, action) => {
                 return b.data.favorite > a.data.favorite ? 1 : -1;
             })
         }
-            default:
-                return state;
+    case types.ANIMATION_START_ASYNC :
+        return {
+            ...state,
+            re : !state.re
+        }
+        default:
+            return state;
     }
 }

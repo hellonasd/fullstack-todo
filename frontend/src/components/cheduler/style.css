@@ -1,11 +1,8 @@
-
-
 .chedule-main {
-  
     position: relative;
     align-items: center;
     display: flex;
-    
+
     padding: 50px 4%;
     user-select: none;
 }
@@ -28,11 +25,11 @@
 .chedule-header-title {
     font-size: 32px;
     font-weight: 700;
-    font-family: 'roboto';
+    font-family: "roboto";
 }
 
-input[type='search']{
-    background-image: url('../../img/loupe.svg');
+.input-search {
+    background-image: url("../../img/loupe.svg");
     background-position: 130px 7px;
     background-repeat: no-repeat;
     height: 35px;
@@ -40,55 +37,37 @@ input[type='search']{
     outline: none;
     background-size: 18px 18px;
     border: 1px solid rgb(139, 137, 137);
-    
 }
 
-input[type='text']{
+.inputs {
     width: 100%;
     height: 40px;
     font-size: 20px;
     border: 1px solid rgb(139, 137, 137);
     border-radius: 10px;
     margin-right: 20px;
-    font-family: 'roboto';
+    font-family: "roboto";
     font-weight: 300;
     outline: none;
-}
-
-input[type='text']::placeholder{
-    color: rgb(139, 137, 137);
-    font-size: 18px;
-    padding-left: 29px;
-    
-}
-input[type='search']::placeholder{
-    color: rgb(139, 137, 137);
-    font-size: 18px;
-    padding-left: 29px;
+    padding-left: 36px;
 }
 
 
-input[type='text']:focus{
-    border: 1px solid #03adfc;
-}
-input[type='search']:focus{
-    border: 1px solid #03adfc;
-}
 
-.schedule-form{
+.schedule-form {
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-.chedule-btn-add-task{
+.chedule-btn-add-task {
     background-image: url(../../img/plus.svg);
     padding-left: 25px;
     color: white;
     background-position: 6% 50%;
     background-repeat: no-repeat;
     background-size: 18px 18px;
-    font-family: 'roboto';
+    font-family: "roboto";
     border: 0;
     border-radius: 5px;
     background-color: rgb(55, 135, 255);
@@ -96,39 +75,25 @@ input[type='search']:focus{
     height: 40px;
 }
 
-
-
-.chedule-view-task-item{
+.chedule-view-task {
     list-style: none;
-    padding: 0px;
+    padding-top: 20px;
 }
 
-
-input::-webkit-input-placeholder {
-    color: #999;
+.task.item-enter {
+    transition: opacity 0.2ms ease-in-out;
+    
 }
-input:focus::-webkit-input-placeholder {
-    color: transparent;
+.task.item-enter-active {
+    transition: opacity 0.2ms ease-in-out;
+    
+    
 }
-/* Firefox < 19 */
-input:-moz-placeholder {
-    color: #999;
+.task.item-exit {
+    transition: top 0.2ms ease-in-out;
+    
+    
 }
-input:focus:-moz-placeholder {
-    color: transparent;
-}
-/* Firefox > 19 */
-input::-moz-placeholder {
-    color: #999;
-}
-input:focus::-moz-placeholder {
-    color: transparent;
-}
-
-/* Internet Explorer 10 */
-input:-ms-input-placeholder {
-    color: #999;
-}
-input:focus:-ms-input-placeholder {
-    color: transparent;
+.task.item-exit-active {
+    transition: opacity 0.2ms ease-in-out;
 }

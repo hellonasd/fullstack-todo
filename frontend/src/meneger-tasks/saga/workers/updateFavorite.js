@@ -5,7 +5,6 @@ export function* updateFavorite({payload}) {
     try {
         const {id, favorite} = payload
         const response = yield apply(AuthService, AuthService.updateFavoriteAndCompleted,[id, favorite])
-        
         yield put(actions.updateFavoriteCompleted(response.data))
     } catch (error) {
         console.log('error', error);

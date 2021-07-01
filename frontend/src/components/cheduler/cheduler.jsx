@@ -1,16 +1,19 @@
 import react, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import FlipMove from "react-flip-move";
 import "./style.css";
 import { Task } from "../task/task";
 import { actions } from "../../meneger-tasks/actions";
-
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 export const Cheduler = () => {
   const { user } = useSelector((state) => state.auth);
   const todos = useSelector((state) => state.posts);
+  const { re } = useSelector((state) => state.posts);
+  const [ss, setSS] = useState(re);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(actions.asyncGetAllTodo(user.email));
-  }, []);
+  }, [re]);
 
   const addNewTask = (event) => {
     const value = event.target[0].value;
@@ -20,7 +23,6 @@ export const Cheduler = () => {
     }
     event.preventDefault();
   };
-
   const tasks = todos.todo.map((todo) => {
     return (
       <Task
@@ -29,27 +31,54 @@ export const Cheduler = () => {
         completed={todo.data.completed}
         favorite={todo.data.favorite}
         message={todo.data.message}
-        actions = {actions}
-        isOpen = {todos.isOpen}
+        actions={actions}
+        isOpen={todos.isOpen}
         {...todo}
       />
     );
   });
+
   return (
     <section className="chedule-main">
       <main className="chedule-wrapper">
         <header className="chedule-header">
           <h1 className="chedule-header-title">Планировщик задач</h1>
-          <input type="search" placeholder="Поиск" />
+          <input type="search" className="input-search" placeholder="Поиск" />
         </header>
         <section className="schedule-tasks-main">
           <form className="schedule-form" onSubmit={(e) => addNewTask(e)}>
-            <input type="text" placeholder="Описание моей новой задачи" />
+            <input
+              type="text"
+              className="inputs"
+              placeholder="Описание моей новой задачи"
+            />
             <button className="chedule-btn-add-task">Добавить задачу</button>
           </form>
-          <div className="chedule-view-task">
-            <ul className='chedule-view-task-item'>{tasks}</ul>
-          </div>
+
+          <FlipMove delay={200} className="chedule-view-task">
+            {todos.todo.map((todo) => (
+              <CSSTransition
+                in={re}
+                key={todo._id}
+                timeout={200}
+                classNames="item"
+              >
+              
+                <Task
+                  id={todo._id}
+                  key={todo._id}
+                  completed={todo.data.completed}
+                  favorite={todo.data.favorite}
+                  message={todo.data.message}
+                  actions={actions}
+                  isOpen={todos.isOpen}
+                  {...todo}
+                />
+
+              </CSSTransition>
+            ))}
+          </FlipMove>
+
           <div className="schedile-task"></div>
         </section>
       </main>

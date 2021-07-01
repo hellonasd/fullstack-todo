@@ -5,7 +5,6 @@ export function* getAllTodo(email) {
     try {
         const response = yield apply(AuthService, AuthService.getAllTodo, [email]);
         yield put(actions.getAllTodo(response.data.todos));
-        yield put(actions.sortByImportance())
     } catch (error) {
         console.log('error', error);
     }finally{

@@ -58,6 +58,8 @@ export const actions = {
             type : types.SORT_BY_IMPORT,
         }
     },
+   
+    
     //async
     asyncCreateTask : (payload) => {
         return {
@@ -71,8 +73,12 @@ export const actions = {
             payload
         }
     },
-
-
+    
+    asyncStartAnimation : () => {
+        return {
+            type : types.ANIMATION_START_ASYNC
+        }
+    },
 
     asyncGetAllTodo : (payload) => {
         return {
